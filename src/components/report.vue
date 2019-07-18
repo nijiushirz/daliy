@@ -4,7 +4,7 @@
 
       </div>
       <div>
-        <div class="admin-right-content">
+        <div class="admin-right-content" style="margin-left: 10px">
           <div class="container-fluid">
             <div class="tool-heard">
               <i class="fa fa-bullhorn"></i>
@@ -81,11 +81,12 @@
                   >
                     <div>
 
-                      <el-select v-model="list.type">
+                      <el-select v-model="list.type" style="width: 130px">
                         <el-option v-for="item in newsType"  :label="item.name" :key="item.name" :value="item.name">
 
                         </el-option>
                       </el-select>
+                      <el-button @click.prevent="additem(index)">添加</el-button>
                       <el-button @click.prevent="remove(index)">删除</el-button>
                     </div>
                     <div style="padding: 20px 0">
@@ -290,7 +291,7 @@
 
 
       },
-        toImage() {
+      toImage() {
         window.scrollTo(0,0);
           var shareContent = this.$refs.imageWrapper;//需要截图的包裹的（原生的）DOM 对象
           var width = shareContent.offsetWidth; //获取dom 宽度
@@ -324,6 +325,16 @@
           this.dataURL = dataURL;
           this.loading.close()
         });
+      },
+      additem(index){
+        var obj = {
+          type:'政治',
+          title:'',
+          content:'',
+          link:'',
+          comment:''
+        };
+        this.form.list.splice(index+1,0,obj)
       },
       addList(){
         this.form.list.push({
