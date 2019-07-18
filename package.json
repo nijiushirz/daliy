@@ -8,9 +8,7 @@
     "dev": "webpack-dev-server --host 0.0.0.0 --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
-    "build": "node build/build.js",
-    "predeploy": "npm run dist",  // 或者yarn run dist
-     "deploy": "gh-pages -d dist"
+    "build": "node build/build.js"
   },
   "dependencies": {
     "cropper": "^4.0.0",
