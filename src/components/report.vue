@@ -537,7 +537,7 @@
   .waterfall-container {
     /*分几列*/
     column-count: 2;
-    width: 680px;
+    width: 740px;
     margin-left: 40px;
     -moz-column-count: 2;
     -webkit-column-count: 2;
