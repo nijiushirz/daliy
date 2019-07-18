@@ -121,7 +121,8 @@
               </div>
               <div style="float: left;width: 800px;border-left: 1px #ccc solid" class="imageWrapper" ref="imageWrapper">
 
-               <div class="reportHeard" v-bind:style="{backgroundImage:'url('+country_image+')'}">
+               <div class="reportHeard" >
+                  <img :src="country_image" width="100%">
                   <div class="reportDate">{{reportDate}}</div>
 
                </div>
@@ -131,7 +132,7 @@
 
                     </div>
                     <div class="waterfall-item" v-for="i in reportNewsType">
-                      <div style="margin: 10px;margin-top: 0;overflow: auto; background:#FEFBF2;">
+                      <div style="overflow: auto; background:#FEFBF2;">
                         <div class="all-content" style="position: relative;padding-right: 10px">
                           <div class="right_b" style="position: absolute;width: 10px;height:100%;right: 0">
                               <div class="right_b1">
@@ -295,7 +296,7 @@
           var width = shareContent.offsetWidth; //获取dom 宽度
           var height = shareContent.offsetHeight; //获取dom 高度
           var canvas = document.createElement("canvas"); //创建一个canvas节点
-          var scale = 6; //定义任意放大倍数 支持小数
+          var scale = 1; //定义任意放大倍数 支持小数
           canvas.width = width * scale; //定义canvas 宽度 * 缩放
           canvas.height = height * scale; //定义canvas高度 *缩放
           canvas.style.width = width + "px";
@@ -506,7 +507,6 @@
   .reportHeard{
     background-size: 100% 100%;
     width: 100%;
-    height: 545px;
     position: relative;
   }
   .reportHeard .PHL{
