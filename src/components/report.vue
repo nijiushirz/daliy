@@ -103,11 +103,17 @@
 
                       <el-input v-model="list.link" style="width: 300px" placeholder="来源"></el-input>
                     </div>
+                    <div style="">
+                      <span>评论类型</span>
+                    <el-select v-model="list.commentType">
+                      <el-option v-for="item in commentType" :label="item.name" :key="item.name" :value="item.name"></el-option>
+                    </el-select>
+                    </div>
                     <div style="padding: 20px 0">
 
                       <el-input  type="textarea"
                                  :rows="2"
-                                 v-model="list.comment" style="width: 300px" placeholder="简评"></el-input>
+                                 v-model="list.comment" style="width: 300px" :placeholder="list.commentType"></el-input>
                     </div>
 
 
@@ -146,27 +152,27 @@
                           <div class="item-news" v-for="item in i.news">
                             <div class="title" v-if="item.title">
                               <div style="color: red;padding: 10px 10px;">
-                                <span style="display: inline-block;height: 10px;width: 10px;background:red;border-radius: 50%"></span>
+                                <span style="display: inline-block;height: 10px;width: 10px;background:red;border-radius: 50%;position: relative;z-index: 12;"></span>
                                 {{item.title}}
-                                <span class="list-link" style="color: red;font-style: oblique" v-if="item.content==''">({{item.link}})</span>
+                                <span class="list-link" style="color: red;font-style: oblique;position: relative;z-index: 12;" v-if="item.content==''">({{item.link}})</span>
                               </div>
                             </div>
                             <div class="list-content" style="color: #514F4D;padding: 10px 10px;padding-top: 0" v-if="item.content">
 
                               <span style="display: inline-block;height: 10px;width: 10px;background:#6B6A69;border-radius: 50%"></span>
-                              <span>{{item.content}}</span>
+                              <span style="position: relative;z-index: 12;">{{item.content}}</span>
 
-                              <span class="list-link" style="color: #6B6A69;font-style: oblique">({{item.link}})</span>
+                              <span class="list-link" style="color: #6B6A69;font-style: oblique;position: relative;z-index: 12;">({{item.link}})</span>
                             </div>
 
                             <div class="list-comment" v-if="item.comment" style="padding: 20px 10px;margin: 5px;background: #0D41A7;border-radius: 10px;min-height: 40px;position: relative">
                               <div class="jp-arrow" style="">
 
                               </div>
-                              <div class="jp-img" >
+                              <div   :class="{'jp-img':item.commentType=='简评','ysyd-img':item.commentType=='延伸阅读'}">
 
                               </div>
-                              <div>{{item.comment}}</div>
+                              <div style="position: relative;z-index: 12;">{{item.comment}}</div>
                             </div>
                           </div>
 
@@ -233,7 +239,10 @@
           {name:'社会',img:require('../assets/image/report/社会.png')},
           {name:'焦点',img:require('../assets/image/report/焦点.png')},
           {name:'关系',img:require('../assets/image/report/关系.png')}
-
+        ],
+        commentType:[
+          {name:'简评',img:require('../assets/image/report/简评.png')},
+          {name:'延伸阅读',img:require('../assets/image/report/延伸阅读.png')}
         ],
         cropper:'',
         form:{
@@ -242,7 +251,7 @@
           date:'',
           author:'苑君',
           list:[
-            {type:'政治',title:'',content:'',comment:'',link:''}
+            {type:'政治',title:'',content:'',comment:'',link:'',commentType:'简评'}
 
           ],
           country:'VNM'
@@ -332,7 +341,8 @@
           title:'',
           content:'',
           link:'',
-          comment:''
+          comment:'',
+          commentType:'简评'
         };
         this.form.list.splice(index+1,0,obj)
       },
@@ -342,7 +352,8 @@
           title:'',
           content:'',
           link:'',
-          comment:''
+          comment:'',
+          commentType:'简评'
         })
       },
       remove(index){
@@ -422,7 +433,8 @@
                   title:item.title,
                   content:item.content,
                   link:item.link,
-                  comment:item.comment
+                  comment:item.comment,
+                  commentType:item.commentType
                 }
               ]
             obj[item.type] = 1
@@ -431,7 +443,8 @@
               title:item.title,
               content:item.content,
               link:item.link,
-              comment:item.comment
+              comment:item.comment,
+              commentType:item.commentType
             })
           }
         });
@@ -513,6 +526,15 @@
     height: 30px;
     width: 60px;
     background: url("../assets/image/report/简评.png");
+    background-size: 100% 100%;
+  }
+  .ysyd-img{
+    position: absolute;
+    top: -12px;
+    right: -2px;
+    height: 30px;
+    width: 110px;
+    background: url("../assets/image/report/延伸阅读.png");
     background-size: 100% 100%;
   }
   .reportHeard{
