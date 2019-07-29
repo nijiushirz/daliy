@@ -160,7 +160,7 @@
                             <div class="list-content" style="color: #514F4D;padding: 10px 10px;padding-top: 0" v-if="item.content">
 
                               <span style="display: inline-block;height: 10px;width: 10px;background:#6B6A69;border-radius: 50%"></span>
-                              <span style="position: relative;z-index: 12;">{{item.content}}</span>
+                              <span style="position: relative;z-index: 12;text-align: left">{{item.content}}</span>
 
                               <span class="list-link" style="color: #6B6A69;font-style: oblique;position: relative;z-index: 12;">({{item.link}})</span>
                             </div>
@@ -419,19 +419,40 @@
 
 
       },
+       ToDBC(txtstring) {
+    var tmp = "";
+    for(var i=0;i<txtstring.length;i++){
 
+       if(txtstring.charCodeAt(i) == "34" ){
+         tmp=tmp+String.fromCharCode(txtstring.charCodeAt(i)+65248);
+       }
+     /* if(txtstring.charCodeAt(i)==32){
+        tmp= tmp+ String.fromCharCode(12288);
+      }else if(txtstring.charCodeAt(i)<127){
+        tmp=tmp+String.fromCharCode(txtstring.charCodeAt(i)+65248);
+      }*/else{
+        tmp=tmp+txtstring[i]
+      }
+
+    }
+    return tmp;
+  },
 
       add(){
         this.form.author;
         var list = this.form.list;
         var newList = {};
         var  obj={};
+        var that = this;
         list.map(function(item){
           if(typeof obj[item.type] === 'undefined'){
+           var match = item.content.match(/[\u0000-\u00ff]/g);
+
+
             newList[item.type] = [
                 {
                   title:item.title,
-                  content:item.content,
+                  content:that.ToDBC(item.content),
                   link:item.link,
                   comment:item.comment,
                   commentType:item.commentType
